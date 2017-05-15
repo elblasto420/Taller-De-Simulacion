@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
 import { DistribucionBinomialComponent } from './distribucion-binomial/distribucion-binomial.component';
 import { DistribucionPoissonComponent } from './distribucion-poisson/distribucion-poisson.component';
+import { GraficoComponent } from './grafico/grafico.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -25,7 +26,8 @@ const appRoutes: Routes = [
     AppComponent,
     MenuComponent,
     DistribucionBinomialComponent,
-    DistribucionPoissonComponent
+    DistribucionPoissonComponent,
+    GraficoComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
