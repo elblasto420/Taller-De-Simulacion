@@ -1,13 +1,41 @@
-<div>
-  <div style="display: block">
-    <canvas baseChart
-            [datasets]="barChartData"
-            [labels]="barChartLabels"
-            [options]="barChartOptions"
-            [legend]="barChartLegend"
-            [chartType]="barChartType"
-            (chartHover)="chartHovered($event)"
-            (chartClick)="chartClicked($event)"></canvas>
+<div class="container">
+  <div class="panel panel-primary">
+    <div class="panel-heading">Distribución Binomial</div>
+    <div class="panel-body">
+      <form class="form-horizontal">
+
+
+        <img src="app/img/binomial.png" alt="Binomial" class="img-responsive center-block">
+        <br>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Numero de corridas(n):</label>
+          <div class="col-sm-10">
+            <input class="form-control" name="corrida" type="number" step="0.01" [(ngModel)]="corrida">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Probabilidad(p):</label>
+          <div class="col-sm-10">
+            <input class="form-control" name="probabilidad" type="number" step="0.01" [(ngModel)]="probabilidad">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Variable Aleatoria(x):</label>
+          <div class="col-sm-10">
+            <input class="form-control" name="varAleatoria" type="number" step="0.01" [(ngModel)]="varAleatoria">
+          </div>
+        </div>
+
+
+        <button type="submit" class="btn btn-success center-block" (click)= calculate()>CALCULAR</button>
+        <br>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Distribución Binomial:</label>
+          <div class="col-sm-10">
+            <input class="form-control" name="distBinomial" type="number" step="0.01" disabled [(ngModel)]="distBinomial">
+          </div>
+        </div>
+
+      </form>
+    </div>
   </div>
-  <button (click)="randomize()">Update</button>
-</div>
