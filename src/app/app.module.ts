@@ -17,7 +17,8 @@ const appRoutes: Routes = [
     path: 'home', component: MenuComponent,
     children: [
       { path: 'binomial', component: DistribucionBinomialComponent },
-      { path: 'poisson', component: DistribucionPoissonComponent }
+      { path: 'poisson', component: DistribucionPoissonComponent },
+      { path: 'grafico', component: GraficoComponent }
     ]
   }
 ]

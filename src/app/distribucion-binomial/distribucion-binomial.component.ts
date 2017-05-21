@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Dato } from '../models/datos';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-distribucion-binomial',
@@ -7,33 +9,78 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DistribucionBinomialComponent implements OnInit {
 
-corrida: number;
-probabilidad: number;
-varAleatoria: number;
-distBinomial: number;
+  corrida: number;
+  probabilidad: number;
+  datos: Dato[];
 
-  constructor() { 
-    this.corrida=0.0;
-    this.probabilidad=0.0;
-    this.varAleatoria=0.0;
-    this.distBinomial=0.0;
+  constructor(private router: Router) {
+    this.corrida;
+    this.probabilidad;
+    this.datos = new Array;
   }
 
   ngOnInit() {
+    // this.calculate();
+    // this.datos.distribucion= new Array;
+    // this.datos.variableAleatoria= new Array;
   }
-  factorial(number):number {
-   if (number <= 0) { 
-      return 1; 
-   } else {     
-      return (number * this.factorial(number - 1)); 
-   } 
-} 
-calculate(){
 
-let division=(this.factorial(this.corrida)) / ((this.factorial(this.varAleatoria))*(this.factorial(this.corrida - this.varAleatoria)));
-let multiplicacion=(this.probabilidad ** this.varAleatoria) * ((1 - this.probabilidad) ** (this.corrida - this.varAleatoria));
-this.distBinomial=division*multiplicacion;
 
-}
+
+  factorial(number): number {
+    if (number <= 0) {
+      return 1;
+    } else {
+      return (number * this.factorial(number - 1));
+    }
+  }
+
+  generarVariableAleatoria(corrida, probabilidad): number {
+    let contador = 0;
+    let numeroAleatorio = 0.0;
+    let respuesta = 0.0;
+    while (contador <= corrida) {
+      numeroAleatorio = Math.random();
+      if (numeroAleatorio <= probabilidad) {
+        respuesta++;
+      }
+      contador++;
+    }
+
+    return respuesta;
+  }
+
+
+  generarDatos(corrida, probabilidad) {
+
+    let contador = 0;
+    for (contador; contador <= corrida - 1; contador++) {
+      let dato = new Dato;
+      dato.variableAleatoria = this.generarVariableAleatoria(corrida, probabilidad);
+      let division = (this.factorial(this.corrida)) / ((this.factorial(dato.variableAleatoria)) * (this.factorial(this.corrida - dato.variableAleatoria)));
+      let multiplicacion = (this.probabilidad ** dato.variableAleatoria) * ((1 - this.probabilidad) ** (this.corrida - dato.variableAleatoria));
+      dato.distribucion = division * multiplicacion;
+      dato.corrida=contador;
+      (this.datos.push(dato));
+
+
+    }
+
+  }
+
+  
+
+  calculate() {
+    var element= <HTMLInputElement> document.getElementById("mostrarGrafico");
+    element.disabled=false;
+    this.datos= new Array;
+    (this.generarDatos(this.corrida, this.probabilidad));
+    sessionStorage.setItem('datosBinomial', JSON.stringify(this.datos));
+    
+
+  }
+  mostrarGrafico(){
+    this.router.navigate(['home/grafico']);
+  }
 
 }
