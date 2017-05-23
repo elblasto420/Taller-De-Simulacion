@@ -8,11 +8,11 @@ import { Dato } from '../models/datos';
 })
 export class GraficoComponent implements OnInit {
 
-  public barChartOptions:any = {
+    public barChartOptions:any = {
     scaleShowVerticalLines: false,
     responsive: true
   };
-   public datos: Dato[] = JSON.parse(sessionStorage.getItem('datosBinomial'));
+  public datos: Dato[] = JSON.parse(sessionStorage.getItem('datosBinomial'));
   public barChartLabels:number[] = this.recuperarCorridas();
   public barChartType:string = 'bar';
   public barChartLegend:boolean = true;

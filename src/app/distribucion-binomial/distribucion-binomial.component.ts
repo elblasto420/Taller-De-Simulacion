@@ -10,12 +10,14 @@ import { Router } from '@angular/router';
 export class DistribucionBinomialComponent implements OnInit {
 
   corrida: number;
+  muestra: number;
   probabilidad: number;
   datos: Dato[];
 
   constructor(private router: Router) {
     this.corrida;
     this.probabilidad;
+    this.muestra;
     this.datos = new Array;
   }
 
@@ -35,11 +37,11 @@ export class DistribucionBinomialComponent implements OnInit {
     }
   }
 
-  generarVariableAleatoria(corrida, probabilidad): number {
+  generarVariableAleatoria(muestra, probabilidad): number {
     let contador = 0;
     let numeroAleatorio = 0.0;
     let respuesta = 0.0;
-    while (contador <= corrida) {
+    while (contador <= muestra) {
       numeroAleatorio = Math.random();
       if (numeroAleatorio <= probabilidad) {
         respuesta++;
@@ -54,11 +56,11 @@ export class DistribucionBinomialComponent implements OnInit {
   generarDatos(corrida, probabilidad) {
 
     let contador = 0;
-    for (contador; contador <= corrida - 1; contador++) {
+    for (contador; contador <= this.corrida - 1; contador++) {
       let dato = new Dato;
-      dato.variableAleatoria = this.generarVariableAleatoria(corrida, probabilidad);
-      let division = (this.factorial(this.corrida)) / ((this.factorial(dato.variableAleatoria)) * (this.factorial(this.corrida - dato.variableAleatoria)));
-      let multiplicacion = (this.probabilidad ** dato.variableAleatoria) * ((1 - this.probabilidad) ** (this.corrida - dato.variableAleatoria));
+      dato.variableAleatoria = this.generarVariableAleatoria(this.muestra, probabilidad);
+      let division = (this.factorial(this.muestra)) / ((this.factorial(dato.variableAleatoria)) * (this.factorial(this.muestra - dato.variableAleatoria)));
+      let multiplicacion = (this.probabilidad ** dato.variableAleatoria) * ((1 - this.probabilidad) ** (this.muestra - dato.variableAleatoria));
       dato.distribucion = division * multiplicacion;
       dato.corrida=contador;
       (this.datos.push(dato));
@@ -74,7 +76,7 @@ export class DistribucionBinomialComponent implements OnInit {
     var element= <HTMLInputElement> document.getElementById("mostrarGrafico");
     element.disabled=false;
     this.datos= new Array;
-    (this.generarDatos(this.corrida, this.probabilidad));
+    (this.generarDatos(this.muestra, this.probabilidad));
     sessionStorage.setItem('datosBinomial', JSON.stringify(this.datos));
     
 

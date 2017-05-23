@@ -10,6 +10,7 @@ import { MenuComponent } from './menu/menu.component';
 import { DistribucionBinomialComponent } from './distribucion-binomial/distribucion-binomial.component';
 import { DistribucionPoissonComponent } from './distribucion-poisson/distribucion-poisson.component';
 import { GraficoComponent } from './grafico/grafico.component';
+import { GraficoPComponent } from './grafico-p/grafico-p.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -18,7 +19,8 @@ const appRoutes: Routes = [
     children: [
       { path: 'binomial', component: DistribucionBinomialComponent },
       { path: 'poisson', component: DistribucionPoissonComponent },
-      { path: 'grafico', component: GraficoComponent }
+      { path: 'grafico', component: GraficoComponent },
+      { path: 'graficop', component: GraficoPComponent }
     ]
   }
 ]
@@ -28,7 +30,8 @@ const appRoutes: Routes = [
     MenuComponent,
     DistribucionBinomialComponent,
     DistribucionPoissonComponent,
-    GraficoComponent
+    GraficoComponent,
+    GraficoPComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
